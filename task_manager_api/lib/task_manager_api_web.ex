@@ -23,6 +23,7 @@ defmodule TaskManagerApiWeb do
 
       import Plug.Conn
       import TaskManagerApiWeb.Gettext
+      import TaskManagerApi.AuthorizationHelpers
       alias TaskManagerApiWeb.Router.Helpers, as: Routes
     end
   end
