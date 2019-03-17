@@ -1,0 +1,16 @@
+[Unit]
+Description=Task Manager API
+
+[Service]
+Type=simple
+User=task_manager_api
+Group=task_manager_api
+Restart=on-failure
+Environment=MIX_ENV=prod "PORT=4796"
+Environment=LANG=en_US.UTF-8
+
+WorkingDirectory=/home/task_manager_api/task_spa/task_manager_api
+ExecStart=/home/task_manager2/task_spa/task_manager_api/start.sh
+
+[Install]
+WantedBy=multi-user.target
