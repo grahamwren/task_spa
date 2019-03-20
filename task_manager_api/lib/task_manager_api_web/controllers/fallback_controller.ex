@@ -43,7 +43,7 @@ defmodule TaskManagerApiWeb.FallbackController do
   end
 
   def call(conn, error) do
-    IO.puts("Unhandled error\n\n\n")
+    IO.puts("Unknown fallback:\n\n\n")
     IO.inspect(error)
     IO.puts("\n\n\n")
     conn

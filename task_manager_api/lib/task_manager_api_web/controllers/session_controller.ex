@@ -6,7 +6,8 @@ defmodule TaskManagerApiWeb.SessionController do
 
   action_fallback TaskManagerApiWeb.FallbackController
 
-  def create(conn, %{"email" => email, "password" => password} = params) do
+  def create(conn, params) do
+    %{"email" => email, "password" => password} = IO.inspect(params)
     with {:ok, %User{} = user} <- Users.get_and_auth_user(email, password) do
       resp = %{data: %{
         user_id: user.id,
