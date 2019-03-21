@@ -7,9 +7,7 @@ defmodule TaskManagerApiWeb.TaskController do
   action_fallback TaskManagerApiWeb.FallbackController
 
   def index(conn, %{"user_id" => user_id}) do
-    tasks =
-      Tasks.list_tasks_for_user(user_id)
-      |> Enum.filter(&authorize_resource(&1, conn.assigns.user))
+    tasks = Tasks.list_tasks_for_user(user_id)
     render(conn, "index.json", tasks: tasks)
   end
 
@@ -24,9 +22,7 @@ defmodule TaskManagerApiWeb.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
-    with %Task{} = task <- authorize_resource!(task, conn.assigns.user) do
-      render(conn, "show.json", task: task)
-    end
+    render(conn, "show.json", task: task)
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do

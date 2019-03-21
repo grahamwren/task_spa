@@ -20,7 +20,8 @@ defmodule TaskManagerApi.AuthorizationHelpers do
   def authorize_resource(%User{id: user_id}, %User{} = current_user),
        do: current_user.id === user_id
 
-  def authorize_resource(%Task{user_id: user_id}, %User{} = current_user), do: true
+  def authorize_resource(%Task{user_id: user_id}, %User{} = current_user),
+      do: current_user.id === user_id
 
   def authorize_resource(_resource, _current_user), do: false
 end
