@@ -5,9 +5,10 @@ import styled from '@emotion/styled/macro';
 import createStore from './store';
 import {Main} from './common/layouts'
 import Home from './home';
-import Login from "./login";
+import Login from './login';
 import Logout from './common/components/logout';
 import Register from './register';
+import UserList from './users/user-list';
 import api from './api';
 
 window.api = api;
@@ -32,6 +33,7 @@ export default () => (
         <Route exact path="/login" component={Login}/>
         <Route exact path="/register" component={Register}/>
         <Route exact path="/logout" component={Logout}/>
+        <Route exact path="/users" component={UserList}/>
       </App>
     </Router>
   </Provider>

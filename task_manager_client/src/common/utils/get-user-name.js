@@ -1,13 +1,13 @@
-export default function getUserName(user) {
+export default function getUserName(user, emailFallback = true) {
   let result = '';
   if (user) {
-    if (user.first_name) {
-      result = user.first_name;
+    if (user.firstName) {
+      result = user.firstName;
     }
-    if (user.last_name) {
-      result += result ? ` ${user.last_name}` : user.last_name;
+    if (user.lastName) {
+      result += result ? ` ${user.lastName}` : user.lastName;
     }
-    if (!result && user.email) {
+    if (!result && user.email && emailFallback) {
       result = user.email;
     }
   }

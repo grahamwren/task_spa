@@ -29,6 +29,7 @@ export default class Form extends Component {
 
   async handleSubmit() {
     try {
+      console.log(this.state.data)
       await this.props.onSubmit(this.state.data);
     } catch (msg) {
       this.setState({...this.state, error: msg});
