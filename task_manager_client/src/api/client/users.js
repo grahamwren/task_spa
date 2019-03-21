@@ -43,9 +43,15 @@ export default {
     });
   },
   updateUser(id, data) {
+    const user = {
+      email: data.email,
+      password: data.password,
+      first_name: data.first_name || data.firstName,
+      last_name: data.last_name || data.lastName
+    };
     return $.ajax(`${baseUrl}/users/${id}`, {
       type: 'PUT',
-      data: JSON.stringify({user: data}),
+      data: JSON.stringify({user}),
       contentType: 'application/json',
       beforeSend: xhr => {
         xhr.setRequestHeader('Authorization', `Bearer ${this.token}`);

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Register from './register';
 import {loggedIn} from '../api';
-import {newUser} from '../users';
+import {gotUser} from '../users';
 
-export default connect(undefined, {newUser, loggedIn})(Register);
+export default connect(undefined, {gotUser, loggedIn})(Register);

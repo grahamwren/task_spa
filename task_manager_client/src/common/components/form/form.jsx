@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import styled from '@emotion/styled/macro';
 import map from 'lodash/map';
 import isObject from 'lodash/isObject';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -8,10 +9,17 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Typography from '@material-ui/core/Typography'
 import {Field, StyledForm, FormTitle} from './theme';
 
+const EditHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  margin-bottom: -2rem;
+`;
+
 export default class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = {data: {}};
+    this.state = {data: {}, editing: !props.allowView};
   }
 
   getHandleUpdate(field) {
@@ -27,9 +35,21 @@ export default class Form extends Component {
     }
   }
 
+  resetData() {
+    this.setState({data: {}});
+  }
+
+  toggleEdit() {
+    if (this.state.editing)
+      this.resetData();
+    this.setState({...this.state, editing: !this.state.editing});
+  }
+
   async handleSubmit() {
     try {
-      console.log(this.state.data)
+      if (this.props.allowView) {
+        this.setState({...this.state, editing: false});
+      }
       await this.props.onSubmit(this.state.data);
     } catch (msg) {
       this.setState({...this.state, error: msg});
@@ -37,7 +57,7 @@ export default class Form extends Component {
   }
 
   render() {
-    const {title, fields, submitLabel} = this.props;
+    const {title, fields, submitLabel, allowView, disabled} = this.props;
     const formFields = map(fields, (fieldConfig, dataKey) => {
       return <Field key={dataKey}>
         {fieldConfig.label &&
@@ -55,6 +75,10 @@ export default class Form extends Component {
           name={fieldConfig.autoComplete}
           placeholder={fieldConfig.placeholder}
           autoComplete={fieldConfig.autoComplete}
+          value={this.state.editing ?
+                 this.state.data[dataKey] || fieldConfig.value :
+                 fieldConfig.value}
+          disabled={disabled || !this.state.editing}
           onChange={this.getHandleUpdate(dataKey)}
         />
       </Field>
@@ -62,6 +86,9 @@ export default class Form extends Component {
 
     return (
       <StyledForm onSubmit={ev => ev.preventDefault() || this.handleSubmit()}>
+        {allowView && <EditHeader>
+          <Button disabled={disabled} onClick={() => this.toggleEdit()}>{this.state.editing ? 'View' : 'Edit'}</Button>
+        </EditHeader>}
         {title &&
           <Field>
             <Typography variant="h4" color="inherit">
@@ -72,7 +99,7 @@ export default class Form extends Component {
         <FormHelperText error>
           {this.state.error || ''}
         </FormHelperText>
-        <Button type="submit">{submitLabel}</Button>
+        <Button type="submit" disabled={disabled || !this.state.editing}>{submitLabel}</Button>
       </StyledForm>
     );
   }

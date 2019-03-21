@@ -9,6 +9,7 @@ import Login from './login';
 import Logout from './common/components/logout';
 import Register from './register';
 import UserList from './users/user-list';
+import User from './users/user';
 import api from './api';
 
 window.api = api;
@@ -34,6 +35,7 @@ export default () => (
         <Route exact path="/register" component={Register}/>
         <Route exact path="/logout" component={Logout}/>
         <Route exact path="/users" component={UserList}/>
+        <Route path="/users/:userId" component={({match, ...p}) => <User userId={match.params.userId} {...p}/>}/>
       </App>
     </Router>
   </Provider>

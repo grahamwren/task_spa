@@ -11,7 +11,7 @@ export default class Register extends PureComponent {
   async registerUser(data) {
     try {
       const {data: newUser} = await api.createUser(data);
-      this.props.newUser(newUser);
+      this.props.gotUser(newUser);
       const {data: sessionData} = await api.loginUser(newUser.email, data.password);
       this.props.loggedIn(sessionData);
       this.props.history.push('/');
