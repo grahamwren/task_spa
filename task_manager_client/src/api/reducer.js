@@ -1,6 +1,6 @@
 import {handleActions} from 'redux-actions';
 import merge from 'lodash/merge';
-import {loggedIn} from "./actions";
+import {loggedIn} from '../api/actions';
 import api from './client';
 
 export default handleActions({

@@ -15,7 +15,7 @@ export default class Login extends Component {
 
   async loginUser() {
     try {
-      const {data} = await api.login(this.state.email, this.state.password);
+      const {data} = await api.loginUser(this.state.email, this.state.password);
       this.props.loggedIn(data);
     } catch (error) {
       console.error(error);

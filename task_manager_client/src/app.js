@@ -4,9 +4,13 @@ import styled from '@emotion/styled/macro';
 import Login from "./login";
 import createStore from './store';
 
+import api from './api';
+
 const App = styled.div`
   height: 100%;
 `;
+
+window.api = api;
 
 export default () => (
   <Provider store={createStore()}>

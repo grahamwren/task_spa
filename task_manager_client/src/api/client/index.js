@@ -1,11 +1,11 @@
-import loginUser from "./login";
+import userMethods from "./users";
 
 function Client() {
   this.token = localStorage.getItem('auth-token');
 }
 
 Client.prototype = {
-  login: loginUser,
+  ...userMethods,
   logout() {
     this.token = null;
     localStorage.removeItem('auth-token');
