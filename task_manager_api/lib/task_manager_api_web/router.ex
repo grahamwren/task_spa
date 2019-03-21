@@ -2,13 +2,15 @@ defmodule TaskManagerApiWeb.Router do
   use TaskManagerApiWeb, :router
 
   pipeline :api do
-    plug CORSPlug, [origin: "http://localhost:3000"]
     plug :accepts, ["json"]
   end
 
   pipeline :with_auth do
     plug TaskManagerApiWeb.Plugs.AuthenticateUser
   end
+
+  # CORS stuff
+  options "/*_any", CORSPlug, [origin: "http://localhost:3000"]
 
   scope "/api/v1", TaskManagerApiWeb do
     pipe_through :api

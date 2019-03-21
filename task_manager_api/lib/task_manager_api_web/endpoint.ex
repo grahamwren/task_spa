@@ -1,6 +1,9 @@
 defmodule TaskManagerApiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :task_manager_api
 
+  # CORS stuff
+  plug CORSPlug, [origin: "http://localhost:3000"]
+
   socket "/socket", TaskManagerApiWeb.UserSocket,
     websocket: true,
     longpoll: false
