@@ -18,6 +18,10 @@ defmodule TaskManagerApiWeb.Router do
 
     pipe_through :with_auth
 
-    resources "/users", UserController, except: [:new, :create, :edit]
+    resources "/users", UserController, except: [:new, :create, :edit] do
+      resources "/tasks", TaskController, only: [:index]
+    end
+
+    resources "/tasks", TaskController, except: [:new, :edit, :index]
   end
 end

@@ -8,6 +8,8 @@ defmodule TaskManagerApi.Users.User do
     field :email, :string
     field :password_hash, :string
 
+    has_many :tasks, TaskManagerApi.Tasks.Task
+
     timestamps()
   end
 
