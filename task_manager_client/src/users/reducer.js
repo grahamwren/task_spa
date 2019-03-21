@@ -4,7 +4,7 @@ import {newUser, usersLoaded} from './actions';
 export default handleActions({
   [newUser]: (state, {payload: userData}) =>
     Object.assign(state, {
-      users: Object.assign(state.users, {
+      users: Object.assign(state.users || {}, {
         [userData.id]: userData
       })
     }),
@@ -14,6 +14,6 @@ export default handleActions({
         [user.id]: user
       });
     }, {});
-    return Object.assign(state, {users});
+    return Object.assign({}, state, {users});
   }
 }, {});

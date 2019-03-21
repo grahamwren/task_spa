@@ -1,60 +1,45 @@
-import React, {Component} from 'react';
-
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import Button from '@material-ui/core/Button';
-
-import {LoginContainer, FormField} from "./theme";
+import React, {PureComponent} from 'react';
+import Form from '../common/components/form';
+import {LoginContainer} from "./theme";
 import api from '../api';
 
-export default class Login extends Component {
+export default class Login extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
-  async loginUser() {
+  async loginUser({email, password}) {
     try {
-      const {data} = await api.loginUser(this.state.email, this.state.password);
+      const {data} = await api.loginUser(email, password);
       this.props.loggedIn(data);
       this.props.history.push('/');
     } catch (error) {
-      console.error(error);
-      this.setState({...this.state, error});
+      throw error.statusText;
     }
   }
 
   render() {
-    const emailInputField =
-      <Input
-        type="email"
-        name="email"
-        autoComplete="email"
-        onChange={ev => this.setState({...this.state, email: ev.target.value})}
-      />;
-
-    const passwordInputField =
-      <Input
-        type="password"
-        name="password"
-        autoComplete="current-password"
-        onChange={ev => this.setState({...this.state, password: ev.target.value})}
-      />;
+    const formFields = {
+      email: {
+        label: 'Email',
+        type: 'email',
+        autoComplete: 'username'
+      },
+      password: {
+        label: 'Password',
+        type: 'password',
+        autoComplete: 'current-password'
+      }
+    };
 
     return (
-      <LoginContainer onSubmit={ev =>
-        ev.preventDefault() ||
-        this.loginUser()
-      }>
-        <FormField>
-          <InputLabel>Email</InputLabel>
-          {emailInputField}
-        </FormField>
-        <FormField>
-          <InputLabel>Password</InputLabel>
-          {passwordInputField}
-        </FormField>
-        <Button type="submit">Login</Button>
+      <LoginContainer>
+        <Form
+          title="Login"
+          fields={formFields}
+          submitLabel="Login"
+          onSubmit={data => this.loginUser(data)}
+        />
       </LoginContainer>
     );
   }

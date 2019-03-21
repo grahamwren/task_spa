@@ -31,7 +31,7 @@ const authenticateContent = user => (
       <Link to="/users">Users</Link>
     </LeftItems>
     <RightItems>
-      <Link to={`/users/${user.id || user}`}>{getUserName(user)}</Link>
+      {user && <Link to={`/users/${user.id}`}>{getUserName(user)}</Link>}
       <Link to="/logout">Logout</Link>
     </RightItems>
   </NavBar>
@@ -40,6 +40,7 @@ const unauthenticatedContent = (
   <NavBar>
     <RightItems>
       <Link to="/login">Login</Link>
+      <Link to="/register">Register</Link>
     </RightItems>
   </NavBar>
 );
@@ -68,7 +69,7 @@ export default class Header extends PureComponent {
               Productivity
             </Typography>
           </Link>
-          {currentUserId && authenticateContent(currentUser || currentUserId)}
+          {currentUserId && authenticateContent(currentUser)}
           {!currentUserId && unauthenticatedContent}
         </Toolbar>
       </AppBar>

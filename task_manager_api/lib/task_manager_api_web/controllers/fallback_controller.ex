@@ -27,6 +27,13 @@ defmodule TaskManagerApiWeb.FallbackController do
     |> render("401.json")
   end
 
+  def call(conn, {:error, "invalid password"}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(TaskManagerApiWeb.ErrorView)
+    |> render("401.json")
+  end
+
   def call(conn, {:error, "Unauthorized to access resource"}) do
     conn
     |> put_status(:forbidden)

@@ -3,5 +3,5 @@ import {getCurrentUserId} from '../api';
 
 export function getCurrentUser(state) {
   const currentUserId = getCurrentUserId(state);
-  return get(state, `users.${currentUserId}`);
+  return get(state, `users.users.${currentUserId}`);
 }

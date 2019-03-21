@@ -2,10 +2,10 @@ import $ from 'jquery';
 import {baseUrl} from "../../config";
 
 export default {
-  createUser(data) {
+  createUser(user) {
     return $.ajax(`${baseUrl}/users`, {
       method: 'POST',
-      data,
+      data: JSON.stringify({user}),
       beforeSend: xhr => {
         xhr.setRequestHeader('Content-Type', 'application/json');
       }
