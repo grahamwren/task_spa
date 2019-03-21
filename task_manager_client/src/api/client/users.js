@@ -20,12 +20,19 @@ export default {
       }
     });
   },
+  getUsers() {
+    return $.ajax(`${baseUrl}/users`, {
+      method: 'GET',
+      beforeSend: xhr => {
+        xhr.setRequestHeader('Authorization', `Bearer ${this.token}`);
+      }
+    })
+  },
   getUser(id) {
     return $.ajax(`${baseUrl}/users/${id}`, {
       method: 'GET',
       beforeSend: xhr => {
         xhr.setRequestHeader('Authorization', `Bearer ${this.token}`);
-        xhr.setRequestHeader('Content-Type', 'application/json');
       }
     });
   },
