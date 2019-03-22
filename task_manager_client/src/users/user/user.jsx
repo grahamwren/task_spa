@@ -42,6 +42,15 @@ export default class User extends Component {
     }
   }
 
+  async deleteUser() {
+    try {
+      await api.deleteUser(this.props.userId);
+      this.props.history.push('/')
+    } catch (e) {
+      throw e.statusText;
+    }
+  }
+
   render() {
     const {user, currentUser} = this.props;
     if (!user) return null;
@@ -86,7 +95,9 @@ export default class User extends Component {
           initialData={user}
           submitLabel="Update"
           disabled={user.id !== currentUser.id}
-          allowView={true}
+          allowView
+          allowDelete
+          handleDelete={() => this.deleteUser()}
           onSubmit={data => this.updateUser(data)}
         />
       </Container>

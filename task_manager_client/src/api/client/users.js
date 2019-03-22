@@ -58,5 +58,13 @@ export default {
         xhr.setRequestHeader('Content-Type', 'application/json');
       }
     })
+  },
+  deleteUser(id) {
+    return $.ajax(`${baseUrl}/users/${id}`, {
+      type: 'DELETE',
+      beforeSend: xhr => {
+        xhr.setRequestHeader('Authorization', `Bearer ${this.token}`);
+      }
+    })
   }
 }

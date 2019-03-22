@@ -3,6 +3,7 @@ import styled from '@emotion/styled/macro';
 import api from '../../api';
 import UserListItem from './user-list-item';
 const Users = styled.div`
+  width: 80%;
   margin: 0 2rem;
   display: flex;
   flex-direction: row;

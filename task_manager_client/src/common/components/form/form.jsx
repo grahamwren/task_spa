@@ -22,7 +22,7 @@ const EditHeader = styled.div`
 export default class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = {data: this.props.initialData, editing: !props.allowView};
+    this.state = {data: this.props.initialData || {}, editing: !props.allowView};
   }
 
   getHandleUpdate(field) {
@@ -60,7 +60,7 @@ export default class Form extends Component {
   }
 
   render() {
-    const {title, fields, submitLabel, allowView, disabled, initialData} = this.props;
+    const {title, fields, submitLabel, allowView, allowDelete, handleDelete, disabled, initialData = {}} = this.props;
     const formFields = map(fields, (fieldConfig, dataKey) => {
       let input;
 
@@ -132,8 +132,9 @@ export default class Form extends Component {
 
     return (
       <StyledForm onSubmit={ev => ev.preventDefault() || this.handleSubmit()}>
-        {allowView && <EditHeader>
-          <Button disabled={disabled} onClick={() => this.toggleEdit()}>{this.state.editing ? 'View' : 'Edit'}</Button>
+        {(allowView || allowDelete) && <EditHeader>
+          {allowDelete && <Button disabled={disabled} onClick={handleDelete}>Delete</Button>}
+          {allowView && <Button disabled={disabled} onClick={() => this.toggleEdit()}>{this.state.editing ? 'View' : 'Edit'}</Button>}
         </EditHeader>}
         {title &&
           <Field>

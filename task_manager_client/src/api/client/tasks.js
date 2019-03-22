@@ -50,10 +50,17 @@ export default {
     return $.ajax(`${baseUrl}/tasks/${id}`, {
       type: 'PUT',
       data: JSON.stringify({task}),
-      contentType: 'application/json',
       beforeSend: xhr => {
         xhr.setRequestHeader('Authorization', `Bearer ${this.token}`);
         xhr.setRequestHeader('Content-Type', 'application/json');
+      }
+    })
+  },
+  deleteTask(id) {
+    return $.ajax(`${baseUrl}/tasks/${id}`, {
+      type: 'DELETE',
+      beforeSend: xhr => {
+        xhr.setRequestHeader('Authorization', `Bearer ${this.token}`);
       }
     })
   }

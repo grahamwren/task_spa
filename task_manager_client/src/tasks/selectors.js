@@ -7,8 +7,8 @@ export function getTask(state, taskId) {
 
 export function getTasksForUserId(state, userId) {
   const tasks = Object.values(getTasks(state) || {});
-  tasks.filter(task => task.userId === userId);
-  return keyBy(tasks, 'id');
+  const myTasks = tasks.filter(task => task.userId === userId);
+  return keyBy(myTasks, 'id');
 }
 
 export function getTasks(state) {

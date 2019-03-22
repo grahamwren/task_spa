@@ -34,6 +34,16 @@ export default class TaskList extends PureComponent {
   }
 
   render() {
+    if (!(this.props.tasks && this.props.tasks.length))
+      return <Container>
+        <Header>
+          <Link to="/new-task">
+            <Button>New Task</Button>
+          </Link>
+        </Header>
+        Add some tasks to see them here.
+      </Container>;
+
     const items = this.props.tasks.map(task => <TaskListItem task={task} key={task.id}/>);
     return (
       <Container>

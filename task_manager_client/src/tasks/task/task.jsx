@@ -51,6 +51,15 @@ export default class Task extends Component {
     }
   }
 
+  async deleteTask() {
+    try {
+      await api.deleteTask(this.props.task.id);
+      this.props.history.push('/tasks');
+    } catch (e) {
+      throw e.statusText;
+    }
+  }
+
   render() {
     const {task, currentUserId, users} = this.props;
     if (!task) return null;
@@ -93,8 +102,10 @@ export default class Task extends Component {
             timeWorked: Duration.fromMillis(task.timeWorked * 1000).toFormat('hh:mm')
           }}
           submitLabel="Update"
-          disabled={task.user_id !== currentUserId}
-          allowView={true}
+          disabled={task.userId !== currentUserId}
+          allowView
+          allowDelete
+          handleDelete={() => this.deleteTask()}
           onSubmit={data => this.updateTask(data)}
         />
       </Container>
