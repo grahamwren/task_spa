@@ -27,7 +27,7 @@ export default handleActions({
       return Object.assign(acc, {
         [task.id]: exToJs(task)
       });
-    }, state.tasks);
+    }, state.tasks || {});
     return Object.assign({}, state, {tasks});
   }
 }, {});

@@ -5,7 +5,7 @@ import TaskList from '../task-list';
 export default class MyTasks extends PureComponent {
   componentDidMount() {
     api.getTasksForUser(this.props.currentUserId)
-      .then(({data}) => this.props.tasksLoaded(data))
+      .then(({data}) => this.props.someTasksLoaded(data))
       .catch(console.error)
   }
 

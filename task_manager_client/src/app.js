@@ -14,7 +14,7 @@ import Task from './tasks/task';
 import NewTask from './tasks/new-task';
 import api from './api';
 import MyTasks from './tasks/my-tasks';
-import AllTasks from './tasks/all-tasks/';
+import AllTasks from './tasks/all-tasks';
 
 window.api = api;
 

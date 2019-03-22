@@ -12,4 +12,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, {tasksLoaded: someTasksLoaded})(MyTasks);
+export default connect(mapStateToProps, {someTasksLoaded})(MyTasks);
