@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import styled from '@emotion/styled/macro';
+import MyTasks from "../tasks/my-tasks";
 
 const Container = styled.div`
   height: 100%;
@@ -13,9 +14,7 @@ export default class Home extends PureComponent {
   render() {
     return (
       <Container>
-        <span>Hello World!</span>
-        <span>Hello World!</span>
-        <span>Hello World!</span>
+        <MyTasks/>
       </Container>
     );
   }

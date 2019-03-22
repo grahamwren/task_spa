@@ -5,6 +5,7 @@ dependencies:
   '@material-ui/core': 3.9.2
   jquery: 3.3.1
   lodash: 4.17.11
+  luxon: 1.11.4
   react: 16.8.4
   react-dom: 16.8.4
   react-redux: 6.0.1
@@ -6943,6 +6944,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
+  /luxon/1.11.4:
+    dev: false
+    resolution:
+      integrity: sha512-zTQ1DCShOGHIdNpa56yjDpUCowKDsBqeFVuEG2XBcrAM2udxN0g3N5RTZzbw94OkDiBgECsuDgLNnQTo73yghw==
   /make-dir/2.1.0:
     dependencies:
       pify: 4.0.1
@@ -11311,6 +11316,7 @@ specifiers:
   '@material-ui/core': ^3.9.2
   jquery: ^3.3.1
   lodash: ^4.17.11
+  luxon: ^1.11.4
   react: ^16.8.4
   react-dom: ^16.8.4
   react-redux: ^6.0.1

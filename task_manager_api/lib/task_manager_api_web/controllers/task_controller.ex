@@ -11,6 +11,11 @@ defmodule TaskManagerApiWeb.TaskController do
     render(conn, "index.json", tasks: tasks)
   end
 
+  def index(conn, %{}) do
+    tasks = Tasks.list_tasks()
+    render(conn, "index.json", tasks: tasks)
+  end
+
   def create(conn, %{"task" => task_params}) do
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn

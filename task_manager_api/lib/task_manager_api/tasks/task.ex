@@ -19,6 +19,6 @@ defmodule TaskManagerApi.Tasks.Task do
     |> foreign_key_constraint(:user_id)
     |> validate_length(:title, max: 255)
     |> validate_number(:time_worked, greater_than_or_equal_to: 0)
-    |> validate_required([:title, :completed, :time_worked, :user_id])
+    |> validate_required([:title, :user_id])
   end
 end

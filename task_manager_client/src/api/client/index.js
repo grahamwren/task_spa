@@ -1,4 +1,5 @@
-import userMethods from "./users";
+import userMethods from './users';
+import taskMethods from './tasks';
 
 function Client() {
   this.token = localStorage.getItem('auth-token');
@@ -6,6 +7,7 @@ function Client() {
 
 Client.prototype = {
   ...userMethods,
+  ...taskMethods,
   logout() {
     this.token = null;
     localStorage.removeItem('auth-token');

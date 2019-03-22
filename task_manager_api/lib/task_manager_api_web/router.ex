@@ -24,6 +24,6 @@ defmodule TaskManagerApiWeb.Router do
       resources "/tasks", TaskController, only: [:index]
     end
 
-    resources "/tasks", TaskController, except: [:new, :edit, :index]
+    resources "/tasks", TaskController, except: [:new, :edit]
   end
 end

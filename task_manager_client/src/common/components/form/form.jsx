@@ -4,6 +4,9 @@ import map from 'lodash/map';
 import isObject from 'lodash/isObject';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
+import Switch from '@material-ui/core/Switch';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Typography from '@material-ui/core/Typography'
@@ -19,13 +22,13 @@ const EditHeader = styled.div`
 export default class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = {data: {}, editing: !props.allowView};
+    this.state = {data: this.props.initialData, editing: !props.allowView};
   }
 
   getHandleUpdate(field) {
     return (ev) => {
       ev.preventDefault();
-      const newVal = ev.target.value;
+      const newVal = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
       const newData = Object.assign({}, this.state.data, {
         [field]: newVal
       });
@@ -36,7 +39,7 @@ export default class Form extends Component {
   }
 
   resetData() {
-    this.setState({data: {}});
+    this.setState({...this.state, data: this.props.initialData});
   }
 
   toggleEdit() {
@@ -47,18 +50,73 @@ export default class Form extends Component {
 
   async handleSubmit() {
     try {
+      await this.props.onSubmit(this.state.data);
       if (this.props.allowView) {
         this.setState({...this.state, editing: false});
       }
-      await this.props.onSubmit(this.state.data);
     } catch (msg) {
       this.setState({...this.state, error: msg});
     }
   }
 
   render() {
-    const {title, fields, submitLabel, allowView, disabled} = this.props;
+    const {title, fields, submitLabel, allowView, disabled, initialData} = this.props;
     const formFields = map(fields, (fieldConfig, dataKey) => {
+      let input;
+
+      if (fieldConfig.type === 'boolean') {
+        input = <Switch
+          inputProps={{
+            name: dataKey,
+            id: dataKey,
+            key: dataKey,
+            disabled: disabled || !this.state.editing
+          }}
+          disabled={disabled || !this.state.editing}
+          checked={this.state.editing ?
+                   this.state.data[dataKey] || initialData[dataKey] :
+                   initialData[dataKey]}
+          onChange={this.getHandleUpdate(dataKey)}
+        />
+      }
+
+      if (fieldConfig.type === 'select') {
+        input = <Select
+          inputProps={{
+            name: dataKey,
+            id: dataKey,
+            key: dataKey,
+            disabled: disabled || !this.state.editing
+          }}
+          disabled={disabled || !this.state.editing}
+          value={this.state.editing ?
+                 this.state.data[dataKey] || initialData[dataKey] :
+                 initialData[dataKey]}
+          onChange={this.getHandleUpdate(dataKey)}
+        >
+          {map(fieldConfig.options, (val, key) =>
+            <MenuItem value={key} key={key}>
+              {val}
+            </MenuItem>
+          )}
+        </Select>
+      }
+
+      if (!input) {
+        input = <Input
+          key={dataKey}
+          id={dataKey}
+          type={fieldConfig.type}
+          name={fieldConfig.autoComplete}
+          placeholder={fieldConfig.placeholder}
+          autoComplete={fieldConfig.autoComplete}
+          value={this.state.editing ?
+                 this.state.data[dataKey] || initialData[dataKey]:
+                 initialData[dataKey]}
+          disabled={disabled || !this.state.editing}
+          onChange={this.getHandleUpdate(dataKey)}
+        />
+      }
       return <Field key={dataKey}>
         {fieldConfig.label &&
          (isObject(fieldConfig.label) ?
@@ -68,19 +126,7 @@ export default class Form extends Component {
            <InputLabel>{fieldConfig.label}</InputLabel>
          )
         }
-        <Input
-          key={dataKey}
-          id={dataKey}
-          type={fieldConfig.type}
-          name={fieldConfig.autoComplete}
-          placeholder={fieldConfig.placeholder}
-          autoComplete={fieldConfig.autoComplete}
-          value={this.state.editing ?
-                 this.state.data[dataKey] || fieldConfig.value :
-                 fieldConfig.value}
-          disabled={disabled || !this.state.editing}
-          onChange={this.getHandleUpdate(dataKey)}
-        />
+        {input}
       </Field>
     });
 

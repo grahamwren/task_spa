@@ -49,17 +49,15 @@ export default class User extends Component {
     const fields = {
       firstName: {
         label: 'First Name',
-        type: 'name',
+        type: 'text',
         autoComplete: 'fName',
-        placeholder: 'Alex',
-        value: user.firstName
+        placeholder: 'Alex'
       },
       lastName: {
         label: 'Last Name',
-        type: 'name',
+        type: 'text',
         autoComplete: 'lName',
-        placeholder: 'Smith',
-        value: user.lastName
+        placeholder: 'Smith'
       },
       email: {
         label: {
@@ -68,8 +66,7 @@ export default class User extends Component {
         },
         type: 'email',
         autoComplete: 'username',
-        placeholder: 'alex.smith@gmail.com',
-        value: user.email
+        placeholder: 'alex.smith@gmail.com'
       },
       password: {
         label: {
@@ -86,6 +83,7 @@ export default class User extends Component {
         <Form
           title={getUserName(user)}
           fields={fields}
+          initialData={user}
           submitLabel="Update"
           disabled={user.id !== currentUser.id}
           allowView={true}

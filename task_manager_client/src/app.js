@@ -10,7 +10,11 @@ import Logout from './common/components/logout';
 import Register from './register';
 import UserList from './users/user-list';
 import User from './users/user';
+import Task from './tasks/task';
+import NewTask from './tasks/new-task';
 import api from './api';
+import MyTasks from './tasks/my-tasks';
+import AllTasks from './tasks/all-tasks/';
 
 window.api = api;
 
@@ -36,6 +40,10 @@ export default () => (
         <Route exact path="/logout" component={Logout}/>
         <Route exact path="/users" component={UserList}/>
         <Route path="/users/:userId" component={({match, ...p}) => <User userId={match.params.userId} {...p}/>}/>
+        <Route exact path="/tasks" component={AllTasks}/>
+        <Route exact path="/my-tasks" component={MyTasks}/>
+        <Route exact path="/new-task" component={NewTask}/>
+        <Route path="/tasks/:taskId" component={({match, ...p}) => <Task taskId={match.params.taskId} {...p}/>}/>
       </App>
     </Router>
   </Provider>
